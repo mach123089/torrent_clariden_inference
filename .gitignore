@@ -1,2 +1,4 @@
+core_nid*
+logs/
 .DS_Store
 *__pycache__/
