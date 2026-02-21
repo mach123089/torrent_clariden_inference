@@ -1,0 +1,6 @@
+# Required to fix SGLang 0.5.3 compatibility with newer cluster environments
+transformers==4.57.1
+numpy==1.26.4
+llguidance==0.7.11
+openai==1.99.1
+torchao==0.9.0
