@@ -30,6 +30,13 @@ ROUTER_POLICY={{ router_policy }}
 mkdir -p "${LOG_DIR}"
 
 nodes=($(scontrol show hostnames $SLURM_NODELIST))
+
+# Dump GPU state on all nodes before starting servers
+echo "=== GPU state before server start ===" >> "${LOG_DIR}/gpu_state_pre_start.txt"
+for node in $(scontrol show hostnames $SLURM_NODELIST); do
+    echo "--- Node: $node ---" >> "${LOG_DIR}/gpu_state_pre_start.txt"
+    srun --nodes=1 --ntasks=1 -w $node nvidia-smi >> "${LOG_DIR}/gpu_state_pre_start.txt" 2>&1
+done
 if [ ${#nodes[@]} -ne $NODES ]; then
     echo "Error: Expected $NODES nodes but got ${#nodes[@]} nodes"
     exit 1
